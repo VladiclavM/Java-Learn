@@ -2,10 +2,15 @@ package ClassWork1;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class Task extends BaseTask{
-    Status status = Status.NEW;
+import java.util.Scanner;
+
+public class Task extends BaseTask {
+
+    private Status status = Status.NEW;
     private final List<SubTask> subTasks = new ArrayList<>();
+
 
     public Task(String title) {
         super(title);
@@ -13,35 +18,34 @@ public class Task extends BaseTask{
 
     public void addSubTask(SubTask sub) {
         subTasks.add(sub);
-        updateStatus();
+        checkAndComplete();
     }
 
     public boolean checkAndComplete() {
         if (subTasks.isEmpty()) {
+            this.status = Status.NEW;
             return false;
         }
 
         boolean allDone = subTasks.stream().allMatch(SubTask::isCompleted);
 
-        if (allDone) {
-            this.status = Status.DONE;
-            return true;
-        } else {
-            this.status = Status.IN_PROGRESS;
-            return false;
-        }
-    }
 
-    private void updateStatus() {
-        checkAndComplete();
+        this.status = allDone ? Status.DONE : Status.IN_PROGRESS;
+
+        return allDone;
     }
 
     public Status getStatus() {
         return status;
     }
 
+    public List<SubTask> getSubTasks() {
+        return subTasks;
+    }
+
     @Override
     public String toString() {
-        return "Задача: " + title + " | Статус: " + status + " | Подзадач: " + subTasks.size();
+        return String.format("[TASK] %-15s | Статус: %-11s | Подзадач: %d",
+                title, status, subTasks.size());
     }
 }

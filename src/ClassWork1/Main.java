@@ -1,5 +1,6 @@
 package ClassWork1;
-
+import java.util.Arrays;
+import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
@@ -10,23 +11,32 @@ public class Main {
         myTask.addSubTask(s1);
         myTask.addSubTask(s2);
 
+        System.out.println("--- Начальное состояние ---");
+
         System.out.println(myTask);
 
         s1.setCompleted(true);
         s2.setCompleted(true);
 
+
         if (myTask.checkAndComplete()) {
+            System.out.println("\n--- После выполнения всех подзадач ---");
             System.out.println("Готово! " + myTask);
         }
 
+        Task duplicateTask = new Task("Написать код");
+        List<Task> taskList = Arrays.asList(myTask, duplicateTask, new Task("Другая задача"));
 
+        System.out.println("\n--- Демонстрация уникальности ---");
+        TaskUtils.checkUniqueness(taskList);
+
+
+        System.out.println("\n--- Вывод в виде диаграммы ---");
+
+        TaskUtils.printTaskTree(myTask);
     }
 }
 
-//таск менеджер
-//enum class 3 мода new, in progress, done
-//автоматом new
-//подзачади сделать map или мпссивом или еше как то
-//подзачади, если не все под задачи не зделанны флаг "в прогрессе"
-//функция для контроля выполнено (если все подзадчи сделаны возращают тру до объект done)
-//соблюдать икапсуляцию наследование и по желанию абстрацию
+
+//добавить в классы ту стринг хэш код, пока создаем новый массив создаем новый метод для того что бы доказать что каждая задача уникальна (в нутри utils)
+//c помошью комперебл интрефейс и ф формат выводить главную задачу а под ним под задачи ввиде диаграммы
