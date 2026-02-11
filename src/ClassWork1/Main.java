@@ -1,9 +1,10 @@
 package ClassWork1;
 import java.util.Arrays;
 import java.util.List;
+import java.util.ArrayList;
+
 public class Main {
     public static void main(String[] args) {
-
         Task myTask = new Task("Написать код");
         SubTask s1 = new SubTask("Создать классы");
         SubTask s2 = new SubTask("Проверить логику");
@@ -25,18 +26,42 @@ public class Main {
         }
 
         Task duplicateTask = new Task("Написать код");
-        List<Task> taskList = Arrays.asList(myTask, duplicateTask, new Task("Другая задача"));
+        List<Task> taskList = new ArrayList<>(Arrays.asList(myTask, duplicateTask, new Task("Другая задача")));
 
         System.out.println("\n--- Демонстрация уникальности ---");
         TaskUtils.checkUniqueness(taskList);
 
-
         System.out.println("\n--- Вывод в виде диаграммы ---");
 
-        TaskUtils.printTaskTree(myTask);
+        System.out.println("=======================================================");
+
+        Task anotherTask = new Task("Другая задача");
+
+        TaskUtils.processTaskCompletion(myTask, true, taskList);
+
+        // Сортировка списка задач по статусу с помощью компаратора
+        taskList.sort(new TaskStatusComparator());
+
+        // Пример работы переключателя
+        TaskUtils.processTaskCompletion(myTask, true, taskList); // Улетит в архив
+        TaskUtils.processTaskCompletion(anotherTask, false, taskList);
+
+
+        //==============================================================
+        TaskStatusComparator statusComparator = new TaskStatusComparator();
+
+
+        taskList.sort(statusComparator);
+
+        System.out.println("\n--- Задачи, отсортированные по статусу ---");
+        taskList.forEach(System.out::println);
+
+        Archive.showArchive();
+
+
     }
 }
 
 
-//добавить в классы ту стринг хэш код, пока создаем новый массив создаем новый метод для того что бы доказать что каждая задача уникальна (в нутри utils)
-//c помошью комперебл интрефейс и ф формат выводить главную задачу а под ним под задачи ввиде диаграммы
+//комперебл интрефейс убираем (коментруем) добавляем вместо него делаем косператор с помошь функции компаре и сортировать задачи по статуту new, done, in progress
+// в классе utils создать новый метод который уберает сделанную задачу в новый класс архив при этом сделать переключатель между переносом в архив и заменой статуса

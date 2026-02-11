@@ -2,7 +2,8 @@ package ClassWork1;
 
 import java.util.Objects;
 
-public abstract class BaseTask implements Comparable<BaseTask> {
+public abstract class BaseTask{
+
     protected String title;
 
     public BaseTask(String title) {
@@ -22,16 +23,18 @@ public abstract class BaseTask implements Comparable<BaseTask> {
         return Objects.equals(title, baseTask.title);
     }
 
+
+
     @Override
     public int hashCode() {
         return Objects.hash(title);
     }
 
 
-    @Override
-    public int compareTo(BaseTask other) {
-        return this.title.compareTo(other.title);
-    }
+//    @Override
+//    public int compareTo(BaseTask other) {
+//        return this.title.compareTo(other.title);
+//    }
 
     @Override
     public abstract String toString();
