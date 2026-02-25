@@ -31,11 +31,11 @@ public abstract class BaseTask{
     }
 
 
-//    @Override
-//    public int compareTo(BaseTask other) {
-//        return this.title.compareTo(other.title);
-//    }
 
     @Override
     public abstract String toString();
+
+
+
+    public abstract Status getStatus();
 }

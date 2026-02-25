@@ -21,4 +21,9 @@ public class SubTask extends BaseTask {
         String statusMarker = isCompleted ? "[X]" : "[ ]";
         return String.format("   └── %s %-15s (SubTask)", statusMarker, title);
     }
+
+    @Override
+    public Status getStatus() {
+        return Status.NEW;
+    }
 }
